@@ -8,14 +8,15 @@ class Person extends Model
 {
     protected $fillable = [
         'name',
-        'email',
         'birthdate',
-        'CPF',
+        'cpf',
         'position',
         'user_id',
     ];
 
-    protected $dates = ['birthdate'];
+    protected $casts = [
+        'birthdate' => 'date',
+    ];
 
     public function address()
     {
@@ -25,5 +26,10 @@ class Person extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function administrator()
+    {
+        return $this->hasOne(Administrator::class);
     }
 }

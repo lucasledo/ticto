@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
             $table->date('birthdate');
-            $table->string('CPF', 11)->unique();
+            $table->string('cpf', 11)->unique();
             $table->string('position');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

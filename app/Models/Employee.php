@@ -17,4 +17,9 @@ class Employee extends Model
     {
         return $this->belongsTo(Administrator::class);
     }
+
+    public function timeRecords()
+    {
+        return $this->hasMany(TimeRecord::class);
+    }
 }
