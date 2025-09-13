@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Administrator;
 use App\Models\Person;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,7 @@ class AdminSeeder extends Seeder
         $user = User::create([
             'email'     => 'admin@ticto.com',
             'password'  => Hash::make('admin123'),
+            'role_id'   => optional(Role::where('role', 'Administrator')->first())->id,
         ]);
 
         $person = Person::create([

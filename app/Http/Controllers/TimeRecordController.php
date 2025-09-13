@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TimeRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TimeRecordController extends Controller
 {
@@ -28,7 +29,25 @@ class TimeRecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            TimeRecord::create([
+                'employee_id'       => Auth::user()->person->employee->id,
+                'ip'                => $request->ip(),
+                'user_agent'        => $request->userAgent(),
+                'time_recorded_at'  => now()
+            ]);
+
+            return back()->with('success', 'Ponto registrado com sucesso!');
+        } catch (\Throwable $th) {
+            report($th);
+
+            if($request->ajax()){
+                return response()->json(['error' => 'Erro ao registrar ponto.'], 500);
+            }
+
+            return redirect()->back()->withInput()->with('error', 'Erro ao registrar ponto.');
+        }
     }
 
     /**

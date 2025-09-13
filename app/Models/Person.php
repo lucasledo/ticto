@@ -32,4 +32,9 @@ class Person extends Model
     {
         return $this->hasOne(Administrator::class);
     }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
 }

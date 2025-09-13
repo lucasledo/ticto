@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -48,5 +49,15 @@ class User extends Authenticatable
     public function person()
     {
         return $this->hasOne(Person::class);
+    }
+
+    public function rule()
+    {
+        return $this->hasOne(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role_id ===  optional(Role::where('role', 'Administrator')->first())->id;
     }
 }

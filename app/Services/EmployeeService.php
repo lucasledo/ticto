@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Address;
 use App\Models\Employee;
 use App\Models\Person;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,7 @@ public function createEmployee(array $data, User $user)
             $employeeUser = User::create([
                 'email'         => $data['email'],
                 'password'      => Hash::make($data['password']),
+                'role_id'       => optional(Role::where('role', 'Employee')->first())->id,
             ]);
 
             $person = Person::create([
