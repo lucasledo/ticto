@@ -13,6 +13,10 @@ class TimeRecord extends Model
         'user_agent'
     ];
 
+    protected $casts = [
+        'time_recorded_at' => 'datetime',
+    ];
+
     public function employee()
     {
         return $this->belongsTo(Employee::class);

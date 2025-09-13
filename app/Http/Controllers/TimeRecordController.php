@@ -11,9 +11,20 @@ class TimeRecordController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = TimeRecord::with('employee.person.user');
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('time_recorded_at', '>=', $request->start_date);
+        }
+        if ($request->filled('end_date')) {
+            $query->whereDate('time_recorded_at', '<=', $request->end_date);
+        }
+
+        $timeRecords = $query->orderBy('time_recorded_at')->paginate(2)->withQueryString();
+
+        return view('admin.time_record.index', compact('timeRecords'));
     }
 
     /**

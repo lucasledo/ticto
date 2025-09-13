@@ -51,12 +51,7 @@
                 </tbody>
             </table>
 
-            <!-- Paginação, se usar -->
-            @if(method_exists($employees, 'links'))
-                <div class="mt-3">
-                    {{ $employees->links() }}
-                </div>
-            @endif
+            {{ $employees->links() }}
         </div>
     </div>
 </div>

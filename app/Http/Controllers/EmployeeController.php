@@ -23,7 +23,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::paginate(20);
         return view('admin.employees.index', compact('employees'));
     }
 
@@ -106,6 +106,24 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        try {
+
+            $this->service->deleteEmployee($employee);
+
+            if(request()->ajax()) {
+                return response()->json(['message' => 'Funcionário removido com sucesso!'], 201);
+            }
+
+            return redirect()->route('employees.index')->with('success', 'Funcionário removido com sucesso!');
+
+        } catch (\Throwable $th) {
+            report($th);
+
+            if(request()->ajax()) {
+                return response()->json(['error' => 'Erro ao remover funcionário.'], 500);
+            }
+
+            return redirect()->back()->withInput()->with('error', 'Erro ao remover funcionário.');
+        }
     }
 }

@@ -83,6 +83,7 @@ public function createEmployee(array $data, User $user)
         return DB::transaction(function() use ($employee) {
             $employee->person->address->delete();
             $employee->person->delete();
+            $employee->person->user->delete();
             return $employee->delete();
         });
     }
