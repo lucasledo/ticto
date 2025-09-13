@@ -22,7 +22,7 @@ class TimeRecordController extends Controller
             $query->whereDate('time_recorded_at', '<=', $request->end_date);
         }
 
-        $timeRecords = $query->orderBy('time_recorded_at')->paginate(2)->withQueryString();
+        $timeRecords = $query->orderBy('time_recorded_at')->paginate(20)->withQueryString();
 
         return view('admin.time_record.index', compact('timeRecords'));
     }

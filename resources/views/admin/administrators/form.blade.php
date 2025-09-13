@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-5">
-    <h1 class="mb-4">{{ isset($employee) ? 'Editar Funcionário' : 'Adicionar Novo Funcionário' }}</h1>
+    <h1 class="mb-4">{{ isset($employee) ? 'Editar Administrador' : 'Adicionar Novo Administrador' }}</h1>
 
     {{-- Alerts de erros --}}
     @if ($errors->any())
@@ -23,12 +23,11 @@
         </div>
     @endif
 
-    <form action="{{ isset($employee) ? route('employees.update', $employee->id) : route('employees.store') }}" method="POST">
+    <form action="{{ isset($employee) ? route('administrators.update', $employee->id) : route('administrators.store') }}" method="POST">
         @csrf
         @if(isset($employee))
             @method('PUT')
         @endif
-
 
             @include('admin.person.form', [
                 'model' => $employee ?? null
@@ -39,7 +38,7 @@
                 <button type="submit" class="btn btn-success">
                     {{ isset($employee) ? 'Atualizar' : 'Cadastrar' }}
                 </button>
-                <a href="{{ route('employees.index') }}" class="btn btn-secondary">Cancelar</a>
+                <a href="{{ route('administrators.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </div>
     </form>

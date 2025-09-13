@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Contracts\RoleInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class Administrator extends Model
+class Administrator extends Model implements RoleInterface
 {
     protected $fillable = ['person_id'];
 

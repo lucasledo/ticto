@@ -19,6 +19,7 @@
                         <th>CPF</th>
                         <th>E-mail</th>
                         <th>Cargo</th>
+                        <th>Gestor</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -28,7 +29,8 @@
                             <td>{{ $employee->id }}</td>
                             <td>{{ $employee->person->name }}</td>
                             <td>{{ $employee->person->cpf }}</td>
-                            <td>{{ $employee->person->email }}</td>
+                            <td>{{ $employee->person->user->email }}</td>
+                            <td>{{ $employee->administrator->person->name }}</td>
                             <td>{{ $employee->person->position }}</td>
                             <td>
                                 <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-sm btn-warning">

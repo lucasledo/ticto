@@ -6,7 +6,6 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
 use App\Services\EmployeeService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -41,7 +40,7 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         try {
-            $this->service->createEmployee($request->validated(), Auth::user());
+            $this->service->create($request->validated(), Auth::user());
 
             if(request()->ajax()) {
                 return response()->json(['message' => 'Funcionário cadastrado com sucesso!'], 201);
@@ -82,7 +81,7 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         try {
-            $this->service->updateEmployee($employee, $request->validated());
+            $this->service->update($employee, $request->validated());
 
             if(request()->ajax()) {
                 return response()->json(['message' => 'Funcionário atualizado com sucesso!'], 201);
@@ -108,7 +107,7 @@ class EmployeeController extends Controller
     {
         try {
 
-            $this->service->deleteEmployee($employee);
+            $this->service->delete($employee);
 
             if(request()->ajax()) {
                 return response()->json(['message' => 'Funcionário removido com sucesso!'], 201);
