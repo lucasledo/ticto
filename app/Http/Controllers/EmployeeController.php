@@ -22,7 +22,12 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(20);
+        $employees = Employee::with(['person.user', 'administrator.person'])->paginate(20);
+
+        if(request()->ajax() || request()->wantsJson()) {
+            return $employees;
+        }
+
         return view('admin.employees.index', compact('employees'));
     }
 
@@ -42,7 +47,7 @@ class EmployeeController extends Controller
         try {
             $this->service->create($request->validated(), Auth::user());
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['message' => 'Funcionário cadastrado com sucesso!'], 201);
             }
 
@@ -51,7 +56,7 @@ class EmployeeController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['error' => 'Erro ao cadastrar funcionário.'], 500);
             }
 
@@ -83,7 +88,7 @@ class EmployeeController extends Controller
         try {
             $this->service->update($employee, $request->validated());
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['message' => 'Funcionário atualizado com sucesso!'], 201);
             }
 
@@ -92,7 +97,7 @@ class EmployeeController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['error' => 'Erro ao cadastrar funcionário.'], 500);
             }
 
@@ -109,7 +114,7 @@ class EmployeeController extends Controller
 
             $this->service->delete($employee);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['message' => 'Funcionário removido com sucesso!'], 201);
             }
 
@@ -118,7 +123,7 @@ class EmployeeController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['error' => 'Erro ao remover funcionário.'], 500);
             }
 

@@ -30,8 +30,8 @@
                             <td>{{ $employee->person->name }}</td>
                             <td>{{ $employee->person->cpf }}</td>
                             <td>{{ $employee->person->user->email }}</td>
-                            <td>{{ $employee->administrator->person->name }}</td>
                             <td>{{ $employee->person->position }}</td>
+                            <td>{{ $employee->administrator->person->name }}</td>
                             <td>
                                 <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-fill"></i> Editar

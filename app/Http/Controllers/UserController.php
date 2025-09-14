@@ -24,11 +24,20 @@ class UserController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
+
+            if($request->ajax() || $request->wantsJson()){
+                return response()->json(['error' => 'A senha atual não confere.'], 422);
+            }
+
             return back()->withErrors(['current_password' => 'A senha atual não confere.']);
         }
 
         $user->password = Hash::make($request->password);
         $user->save();
+
+        if($request->ajax() || $request->wantsJson()){
+            return response()->json(['success' => 'Senha alterada com sucesso!']);
+        }
 
         return back()->with('success', 'Senha alterada com sucesso!');
     }

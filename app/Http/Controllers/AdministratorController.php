@@ -26,6 +26,10 @@ class AdministratorController extends Controller
     {
         $administrators = Administrator::paginate(20);
 
+        if(request()->ajax() || request()->wantsJson()) {
+            return $administrators;
+        }
+
         return view('admin.administrators.index', compact('administrators'));
     }
 
@@ -45,7 +49,7 @@ class AdministratorController extends Controller
         try {
             $this->service->create($request->validated(), Auth::user());
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['message' => 'Administrador cadastrado com sucesso!'], 201);
             }
 
@@ -54,7 +58,7 @@ class AdministratorController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['error' => 'Erro ao cadastrar administrador.'], 500);
             }
 
@@ -86,7 +90,7 @@ class AdministratorController extends Controller
         try {
             $this->service->update($administrator, $request->validated());
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['message' => 'Administrador atualizado com sucesso!'], 201);
             }
 
@@ -95,7 +99,7 @@ class AdministratorController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['error' => 'Erro ao cadastrar administrador.'], 500);
             }
 
@@ -111,7 +115,7 @@ class AdministratorController extends Controller
        try {
             $this->service->delete($administrator);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['message' => 'Administrador removido com sucesso!'], 201);
             }
 
@@ -120,7 +124,7 @@ class AdministratorController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            if(request()->ajax()) {
+            if(request()->ajax() || request()->wantsJson()) {
                 return response()->json(['error' => 'Erro ao remover administrador.'], 500);
             }
 

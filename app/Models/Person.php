@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
@@ -17,6 +18,15 @@ class Person extends Model
     protected $casts = [
         'birthdate' => 'date',
     ];
+
+    protected function age(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->birthdate
+                ? $this->birthdate->age
+                : null
+        );
+    }
 
     public function address()
     {
