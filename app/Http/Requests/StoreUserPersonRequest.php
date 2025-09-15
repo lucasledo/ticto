@@ -29,12 +29,12 @@ class StoreUserPersonRequest extends FormRequest
                 'position'      => 'required|string|max:255',
                 'birthdate'     => 'required|date',
                 'cep'           => 'required|string|max:9',
-                'street'        => 'required|string|max:255',
-                'number'        => 'required|string|max:10',
+                'street'        => 'sometimes|string|max:255',
+                'number'        => 'sometimes|string|max:10',
                 'complement'    => 'nullable|string|max:255',
-                'neighborhood'  => 'required|string|max:255',
-                'city'          => 'required|string|max:255',
-                'state'         => 'required|string|max:2',
+                'neighborhood'  => 'sometimes|string|max:255',
+                'city'          => 'sometimes|string|max:255',
+                'state'         => 'sometimes|string|max:2',
                 'password'      => 'required|min:8|confirmed',
         ];
     }

@@ -30,12 +30,13 @@ class UserPersonService
                 'user_id'       => $user->id,
             ]);
 
+            $data = AddressService::fillAddressFromCep($data);
             Address::create([
                 'addressable_type'  => Person::class,
                 'addressable_id'    => $person->id,
                 'cep'               => $data['cep'],
                 'street'            => $data['street'],
-                'number'            => $data['number'],
+                'number'            => $data['number'] ?? null,
                 'complement'        => $data['complement'] ?? null,
                 'neighborhood'      => $data['neighborhood'],
                 'city'              => $data['city'],
