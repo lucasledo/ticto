@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\EnsureAdmin;
 use App\Models\Administrator;
 use App\Models\Employee;
 use App\Models\TimeRecord;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TimeRecordController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(EnsureAdmin::class)->except(['store']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -82,11 +88,16 @@ class TimeRecordController extends Controller
             TimeRecord::create([
                 'employee_id'       => Auth::user()->person->employee->id,
                 'ip'                => $request->ip(),
-                'user_agent'        => $request->userAgent(),
+                'user_agent'        => $request->userAgent() ?? 'Desconhecido',
                 'time_recorded_at'  => now()
             ]);
 
+            if($request->ajax() || $request->wantsJson()){
+                return response()->json(['message' => 'Ponto registrado com sucesso!'], 201);
+            }
+
             return back()->with('success', 'Ponto registrado com sucesso!');
+
         } catch (\Throwable $th) {
             report($th);
 
