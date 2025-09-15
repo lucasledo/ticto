@@ -45,8 +45,8 @@ Este projeto é um sistema completo para **gestão de funcionários, gestores e 
 ### 2️⃣ Clonar o repositório
 
 ```bash
-git clone https://seu-repositorio.git
-cd seu-projeto
+git clone git@github.com:lucasledo/ticto.git
+cd ticto
 ```
 
 ### 3️⃣ Instalar dependências
@@ -121,6 +121,15 @@ Os testes estão em `tests/Feature`:
 - `TimeRecordTest` → Testa registros de ponto.
 
 ---
+
+## ⚡️ Compilação dos Assets (Vite)
+
+Este projeto utiliza o Laravel Vite Plugin para gerenciar CSS e JavaScript.
+
+```bash
+npm install
+npm run build
+```
 
 ## 🔑 Autenticação da API
 
