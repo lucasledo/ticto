@@ -31,33 +31,33 @@ class UpdateUserPersonRequest extends FormRequest
         }
 
         return [
-            'name'          => 'required|string|max:255',
-            'cpf'           => 'required|cpf|string|size:11|unique:people,cpf,' . $personId,
-            'email'         => 'required|email|unique:users,email,' . $userId,
-            'position'      => 'required|string|max:255',
-            'birthdate'     => 'required|date',
-            'cep'           => 'required|string|max:9',
-            'street'        => 'required|string|max:255',
-            'number'        => 'required|string|max:10',
+            'name'          => 'sometimes|string|max:255',
+            'cpf'           => 'sometimes|cpf|string|size:11|unique:people,cpf,' . $personId,
+            'email'         => 'sometimes|email|unique:users,email,' . $userId,
+            'position'      => 'sometimes|string|max:255',
+            'birthdate'     => 'sometimes|date',
+            'cep'           => 'sometimes|string|max:9',
+            'street'        => 'sometimes|string|max:255',
+            'number'        => 'sometimes|string|max:10',
             'complement'    => 'nullable|string|max:255',
-            'neighborhood'  => 'required|string|max:255',
-            'city'          => 'required|string|max:255',
-            'state'         => 'required|string|max:2',
+            'neighborhood'  => 'sometimes|string|max:255',
+            'city'          => 'sometimes|string|max:255',
+            'state'         => 'sometimes|string|max:2',
         ];
     }
 
      public function messages(): array
     {
         return [
-            'name.required'         => 'O nome é obrigatório.',
-            'email.required'        => 'O email é obrigatório.',
+            'name.sometimes'         => 'O nome é obrigatório.',
+            'email.sometimes'        => 'O email é obrigatório.',
             'email.email'           => 'Informe um email válido.',
             'email.unique'          => 'Este email já está em uso.',
-            'cpf.required'          => 'O CPF é obrigatório.',
+            'cpf.sometimes'          => 'O CPF é obrigatório.',
             'cpf.cpf'               => 'Informe um CPF válido.',
             'cpf.unique'            => 'Este CPF já está cadastrado.',
-            'birth_date.required'   => 'A data de nascimento é obrigatória.',
-            'cep.required'          => 'O CEP é obrigatório.',
+            'birth_date.sometimes'   => 'A data de nascimento é obrigatória.',
+            'cep.sometimes'          => 'O CEP é obrigatório.',
             'cep.size'              => 'O CEP deve ter 8 dígitos numéricos.',
         ];
     }

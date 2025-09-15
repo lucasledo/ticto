@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Contracts\RoleInterface;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model implements RoleInterface
 {
+    use HasFactory;
+
     protected $fillable = ['person_id', 'administrator_id'];
 
     public function person()

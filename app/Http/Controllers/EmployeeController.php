@@ -92,7 +92,7 @@ class EmployeeController extends Controller
                 return response()->json(['message' => 'Funcionário atualizado com sucesso!'], 201);
             }
 
-            return redirect()->route('employees.index')->with('success', 'Funcionário atualizado com sucesso!');
+            return redirect()->back()->with('success', 'Funcionário atualizado com sucesso!');
 
         } catch (\Throwable $th) {
             report($th);

@@ -50,26 +50,11 @@ class UserPersonService
     {
         return DB::transaction(function() use ($roleInterface, $data) {
 
-            $roleInterface->person->user->update([
-                'email'         => $data['email'],
-            ]);
+            $roleInterface->person->user->fill($data)->update();
 
-            $roleInterface->person->update([
-                'name'          => $data['name'],
-                'cpf'           => $data['cpf'],
-                'position'      => $data['position'],
-                'birth_date'    => $data['birth_date'],
-            ]);
+            $roleInterface->person->fill($data)->update();
 
-            $roleInterface->person->address->update([
-                'cep'               => $data['cep'],
-                'street'            => $data['street'],
-                'number'            => $data['number'],
-                'complement'        => $data['complement'] ?? null,
-                'neighborhood'      => $data['neighborhood'],
-                'city'              => $data['city'],
-                'state'             => $data['state'],
-            ]);
+            $roleInterface->person->address->fill($data)->update();
 
             return $roleInterface;
         });
