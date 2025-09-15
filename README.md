@@ -92,10 +92,18 @@ php artisan key:generate
 php artisan migrate
 ```
 
-Se quiser popular dados iniciais (seeders):
+Popular dados iniciais (seeders):
 
 ```bash
 php artisan db:seed
+```
+
+São criados 2 roles (Administrator e Employee) e também o Administrador Default:
+```json
+{
+    "email":"admin@ticto.com",
+    "password":"admin123"
+}
 ```
 
 ---
@@ -199,16 +207,9 @@ curl -X GET "http://localhost/api/time-records?start_date=2025-01-01&end_date=20
 ## 📝 Licença
 
 Este projeto é de uso interno/demonstrativo.  
-Sinta-se à vontade para adaptar às suas necessidades.
 
 ---
 
-## 🤝 Contribuindo
-
-Pull requests são bem-vindos!  
-Para mudanças maiores, abra uma issue primeiro para discutirmos.
-
----
 
 ## 👨‍💻 Autor
 
